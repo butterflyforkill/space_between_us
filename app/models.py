@@ -1,6 +1,12 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP
-from sqlalchemy.sql import func
+from typing import Optional
+from pydantic import BaseModel
+from datetime import datetime, time
+from sqlalchemy import Column, ForeignKey, Integer, String, TIMESTAMP, Time
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
+Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"
@@ -45,3 +51,29 @@ class UserNotification(Base):
     user_id = Column(Integer, ForeignKey("users.user_id"))
     notification_time = Column(Time, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
+
+# Pydantic models (data validation and serialization)
+class User(BaseModel):
+    username: str
+    email: Optional[str]
+    password_hash: str
+    created_at: datetime
+
+class TelegramToken(BaseModel):
+    user_id: int
+    telegram_token: str
+    created_at: datetime
+
+class SubscribeCategory(BaseModel):
+    name: str
+    description: Optional[str]
+
+class UserSubscription(BaseModel):
+    user_id: int
+    category_id: int
+    created_at: datetime
+
+class UserNotification(BaseModel):
+    user_id: int
+    notification_time: time
+    created_at: datetime
