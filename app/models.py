@@ -2,8 +2,8 @@ from sqlalchemy import Column, ForeignKey, Integer, String, TIMESTAMP, Time
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from data_manager.database_manger import Base
 
-Base = declarative_base()
 
 class User(Base):
     __tablename__ = "users"

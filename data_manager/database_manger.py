@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config.config_files import APIkeys
+from sqlalchemy.ext.declarative import declarative_base
 
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://user:{APIkeys.DATABASEpass}@postgresserver/db"
@@ -10,5 +11,4 @@ engine = create_engine(
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-    
-    
+Base = declarative_base()
