@@ -4,10 +4,10 @@ from config.config_files  import APIkeys
 from sqlalchemy.ext.declarative import declarative_base
 
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://polinavasiuk:{APIkeys.DATABASEpass}@postgresserver/space_between_us"
+DATABASE_URL = f"postgresql://postgres:{APIkeys.DATABASEpass}@localhost:5432/space_between_us"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    DATABASE_URL
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
