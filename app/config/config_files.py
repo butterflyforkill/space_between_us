@@ -8,4 +8,4 @@ load_dotenv(find_dotenv())
 class APIkeys:
     TOKENkey: str = os.getenv('token')
     APIkey: str = os.getenv('apikey')
-    DATABASEpass: int = os.getenv('databasepass')
+    DATABASEpass: str = os.getenv('databasepass')
