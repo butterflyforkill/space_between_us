@@ -58,13 +58,63 @@ async def subscription_list():
     """
     pass
 
-@app.route('/subscription_categories/{int:categorie_id}', methods=['GET', 'POST'])
+@app.route('/subscription_categories/{int:categorie_id}/subscribe', methods=['GET', 'POST'])
 async def subscribe(categorie_id):
     """
     user choose the categorie and subscribe to it 
     in the form where he can put the time when he want to receive news
 
     Args:
-        categorie_id (_type_): _description_
+        categorie_id (int): _description_
+    """
+    pass
+
+
+@app.delete('/subscription_categories/{int:categorie_id}/unsubscribe')
+async def unsubscribe(categorie_id):
+    """
+    user insubscribes from the news categorie
+    (it'll delete it from the table UserSubscription and UserNotification)
+
+    Args:
+        categorie_id (int): _description_
+    """
+    pass
+
+
+
+
+# it will be availble for the admin
+# create the categorie
+# delete the categorie
+# update the categorie
+
+@app.route('/admin/create_catogory', methods=['GET', 'POST'])
+async def create_category():
+    """
+    availble only for the admin
+    going to the form to create the catogory and send it to database
+    """
+    pass
+
+
+@app.patch('/admin/update_category/{int:categorie_id}')
+async def update_catogory(categorie_id):
+    """
+    getting the catogory by provided id and updates it, getting the values from the form
+
+    Args:
+        categorie_id (int): _description_
+    """
+    pass
+
+
+@app.delete('/admin/delete_category/{int:categorie_id}')
+async def delete_category(categorie_id):
+    """
+    getting the catogorie by provided id and delete it
+
+    Args:
+        categorie_id (int): _description_
     """
     pass
