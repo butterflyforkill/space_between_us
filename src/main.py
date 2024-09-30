@@ -73,7 +73,7 @@ async def subscribe(categorie_id):
 @app.delete('/subscription_categories/{int:categorie_id}/unsubscribe')
 async def unsubscribe(categorie_id):
     """
-    user insubscribes from the news categorie
+    user unsubscribes from the news categorie
     (it'll delete it from the table UserSubscription and UserNotification)
 
     Args:
@@ -89,19 +89,19 @@ async def unsubscribe(categorie_id):
 # delete the categorie
 # update the categorie
 
-@app.route('/admin/create_catogory', methods=['GET', 'POST'])
+@app.route('/admin/create_category', methods=['GET', 'POST'])
 async def create_category():
     """
-    availble only for the admin
+    available only for the admin
     going to the form to create the catogory and send it to database
     """
     pass
 
 
-@app.patch('/admin/update_category/{int:categorie_id}')
+@app.patch('/admin/update_category/{int:category_id}')
 async def update_catogory(categorie_id):
     """
-    getting the catogory by provided id and updates it, getting the values from the form
+    getting the category by provided id and updates it, getting the values from the form
 
     Args:
         categorie_id (int): _description_
@@ -109,7 +109,7 @@ async def update_catogory(categorie_id):
     pass
 
 
-@app.delete('/admin/delete_category/{int:categorie_id}')
+@app.delete('/admin/delete_category/{int:category_id}')
 async def delete_category(categorie_id):
     """
     getting the catogorie by provided id and delete it
