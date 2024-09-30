@@ -51,6 +51,14 @@ async def user_profile(user_id):
     pass
 
 
+@app.post('/profile/telegram_auth')
+async def telegram_auth():
+    """
+    telegram auth
+    """
+    pass
+
+
 @app.get('/subscription_categories')
 async def subscription_list():
     """
