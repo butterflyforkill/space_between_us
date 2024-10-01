@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
-import models
+import db.models as models
 import schemas
-from database import engine, SessionLocal
+from db.database import engine, SessionLocal
 
 
 app = FastAPI()

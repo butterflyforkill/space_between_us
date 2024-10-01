@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Depends
 
-from .models import User
+from src.db.models import User
+from .utils import generate_pass_hash
+from .schemas import UserCreateModel
 
 
 
@@ -30,4 +32,22 @@ def get_user_by_id(db: Session, user_id: int):
         raise HTTPException(status_code=404, detail=f"User {user_id} not found in the db")
     return user
 
+
+def create_user(user_data: UserCreateModel, db: Session):
+    """
+    creating a new user
+
+    Args:
+        user_data (UserCreateModel): data about user
+        db (Session): session of db
+
+    Returns:
+        User
+    """
+    new_user = User(**user_data)
+    new_user.password_hash = generate_pass_hash(user_data.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
