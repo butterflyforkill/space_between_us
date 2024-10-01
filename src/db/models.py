@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, TIMESTAMP, Time
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from db.database import Base
+from .database import Base
 
 
 class User(Base):
@@ -12,7 +12,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=True)
     password_hash = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
-    updated_at = Column(TIMESTAMP, default=func.now())
+    # updated_at = Column(TIMESTAMP, default=func.now()) ##!!!! need migration 
 
     telegram_tokens = relationship("TelegramToken", backref="user")
     subscriptions = relationship("UserSubscription", backref="user")

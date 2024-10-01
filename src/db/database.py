@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from config.config_files  import APIkeys
+from src.config.config_files import APIkeys
 from sqlalchemy.ext.declarative import declarative_base
 
 
