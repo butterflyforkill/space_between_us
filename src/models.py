@@ -12,6 +12,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=True)
     password_hash = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
+    updated_at = Column(TIMESTAMP, default=func.now())
 
     telegram_tokens = relationship("TelegramToken", backref="user")
     subscriptions = relationship("UserSubscription", backref="user")

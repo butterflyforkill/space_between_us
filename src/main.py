@@ -37,6 +37,11 @@ async def sign_up():
 async def sign_in():
     pass
 
+@app.get('/sign_out')
+async def sign_out():
+    pass
+
+
 # routes that will be visible after registration and login
 
 @app.get('/profile/{int:user_id}')
@@ -65,6 +70,7 @@ async def subscription_list():
     the list of categories for subscribe
     """
     pass
+
 
 @app.route('/subscription_categories/{int:categorie_id}/subscribe', methods=['GET', 'POST'])
 async def subscribe(categorie_id):
