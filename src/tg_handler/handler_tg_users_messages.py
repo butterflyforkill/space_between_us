@@ -1,7 +1,7 @@
 import logging
 from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes, InlineQueryHandler, Updater
-from config.config_files import APIkeys
+from config.config_files import Settings
 from uuid import uuid4
 from NASA_api_handler import handler_NASA_API
 from datetime import time, datetime
@@ -100,7 +100,7 @@ async def pod_inline(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    application = ApplicationBuilder().token(APIkeys.TOKENkey).build()
+    application = ApplicationBuilder().token(Settings.TOKENkey).build()
     
     start_handler = CommandHandler('start', start)
     # echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)

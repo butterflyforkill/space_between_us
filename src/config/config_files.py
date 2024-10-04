@@ -5,7 +5,9 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 @dataclass(frozen=True)
-class APIkeys:
+class Settings:
     TOKENkey: str = os.getenv('token')
     APIkey: str = os.getenv('apikey')
     DATABASEpass: str = os.getenv('databasepass')
+    JWT_SECRET_KEY: str = os.getenv('jwt_secret_key')
+    JWT_ALGORITHM: str = os.getenv('jwt_algorithm')

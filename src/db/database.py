@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.config.config_files import APIkeys
+from src.config.config_files import Settings
 from sqlalchemy.ext.declarative import declarative_base
 
 
-DATABASE_URL = f"postgresql://postgres:{APIkeys.DATABASEpass}@localhost:5432/space_beetween_us"
+DATABASE_URL = f"postgresql://postgres:{Settings.DATABASEpass}@localhost:5432/space_beetween_us"
 
 engine = create_engine(
     DATABASE_URL

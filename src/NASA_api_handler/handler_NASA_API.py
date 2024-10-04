@@ -1,9 +1,9 @@
 import requests
 import json
-from config.config_files import APIkeys
+from config.config_files import Settings
 
 
-APOD_URL = 'https://api.nasa.gov/planetary/apod?api_key=' + APIkeys.APIkey
+APOD_URL = 'https://api.nasa.gov/planetary/apod?api_key=' + Settings.APIkey
 
 
 def get_nasa_data(date=None):
