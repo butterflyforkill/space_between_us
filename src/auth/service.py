@@ -60,8 +60,10 @@ class UserService:
             User
         """
         user_data_dict = user_data.model_dump()
+        print(user_data_dict)
         new_user = User(**user_data_dict)
-        new_user.password_hash = generate_pass_hash(user_data_dict["password_hash"])
+        print(new_user)
+        new_user.password = generate_pass_hash(user_data_dict["password"])
         db.add(new_user)
         db.commit()
         db.refresh(new_user)

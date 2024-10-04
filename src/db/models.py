@@ -10,13 +10,14 @@ class User(Base):
     user_id = Column(Integer, primary_key=True)
     username = Column(String, unique=True, nullable=False)
     email = Column(String, unique=True, nullable=True)
-    password_hash = Column(String, nullable=False)
+    password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
-    # updated_at = Column(TIMESTAMP, default=func.now()) ##!!!! need migration 
+    updated_at = Column(TIMESTAMP, default=func.now()) ##!!!! need migration 
 
     telegram_tokens = relationship("TelegramToken", backref="user")
     subscriptions = relationship("UserSubscription", backref="user")
     notifications = relationship("UserNotification", backref="user")
+
 
 class TelegramToken(Base):
     __tablename__ = "telegram_tokens"
