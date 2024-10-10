@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from datetime import timedelta
+from .dependencies import AccessTokenBearer
 from .schemas import UserCreateModel, UserModel, UserLoginModel
 from src.db.dependencies import get_db
 from .service import UserService
@@ -68,4 +69,7 @@ async def login_user(login_data: UserLoginModel, session: Session = Depends(get_
                     }
                 }
             )
-    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid email or password")
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Invalid email or password"
+        )
