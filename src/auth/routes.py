@@ -10,7 +10,7 @@ from .utils import (
     decode_token, 
     verify_password
     )
-from .dependencies import RefreshTokenBearer, AccessTokenBearer
+from .dependencies import RefreshTokenBearer, AccessTokenBearer, get_current_user
 from src.db.redis import add_jti_to_blocklist
 
 
@@ -45,8 +45,9 @@ async def login_user(login_data: UserLoginModel, session: Session = Depends(get_
         if verify_password(password, user.password):
             access_token = create_access_token(
                 user_data={
-                    'email': user.email,
-                    'user_id': user.user_id
+                    "email": user.email,
+                    "user_id": user.user_id,
+                    "role": user.role
                 }
             )
             
@@ -92,6 +93,11 @@ async def get_new_acces_token(token_details: dict = Depends(RefreshTokenBearer()
         status_code=status.HTTP_400_BAD_REQUEST,
         detail="Invalid or expired token"
         )
+
+
+@auth_router.get('/me')
+async def get_current_user(user=Depends(get_current_user)):
+    return user
 
 
 @auth_router.get('/logout')
