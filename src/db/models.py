@@ -34,6 +34,9 @@ class SubscribeCategory(Base):
     category_id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, nullable=False)
     description = Column(String, nullable=True)
+    creator = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP, default=func.now())
+    updated_at = Column(TIMESTAMP, default=func.now())
 
 class UserSubscription(Base):
     __tablename__ = "user_subscriptions"

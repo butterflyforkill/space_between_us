@@ -48,44 +48,44 @@
 # #     pass
 
 
-# # @app.post('/profile/telegram_auth')
-# # async def telegram_auth():
-# #     """
-# #     telegram auth
-# #     """
-# #     pass
+# @app.post('/profile/telegram_auth')
+# async def telegram_auth():
+#     """
+#     telegram auth
+#     """
+#     pass
 
 
-# # @app.get('/subscription_categories')
-# # async def subscription_list():
-# #     """
-# #     the list of categories for subscribe
-# #     """
-# #     pass
+# @app.get('/subscription_categories')
+# async def subscription_list():
+#     """
+#     the list of categories for subscribe
+#     """
+#     pass
 
 
-# # @app.route('/subscription_categories/{int:categorie_id}/subscribe', methods=['GET', 'POST'])
-# # async def subscribe(categorie_id):
-# #     """
-# #     user choose the categorie and subscribe to it 
-# #     in the form where he can put the time when he want to receive news
+# @app.route('/subscription_categories/{int:categorie_id}/subscribe', methods=['GET', 'POST'])
+# async def subscribe(categorie_id):
+#     """
+#     user choose the categorie and subscribe to it 
+#     in the form where he can put the time when he want to receive news
 
-# #     Args:
-# #         categorie_id (int): _description_
-# #     """
-# #     pass
+#     Args:
+#         categorie_id (int): _description_
+#     """
+#     pass
 
 
-# # @app.delete('/subscription_categories/{int:categorie_id}/unsubscribe')
-# # async def unsubscribe(categorie_id):
-# #     """
-# #     user unsubscribes from the news categorie
-# #     (it'll delete it from the table UserSubscription and UserNotification)
+# @app.delete('/subscription_categories/{int:categorie_id}/unsubscribe')
+# async def unsubscribe(categorie_id):
+#     """
+#     user unsubscribes from the news categorie
+#     (it'll delete it from the table UserSubscription and UserNotification)
 
-# #     Args:
-# #         categorie_id (int): _description_
-# #     """
-# #     pass
+#     Args:
+#         categorie_id (int): _description_
+#     """
+#     pass
 
 
 
@@ -95,13 +95,13 @@
 # # # delete the categorie
 # # # update the categorie
 
-# # @app.route('/admin/create_category', methods=['GET', 'POST'])
-# # async def create_category():
-# #     """
-# #     available only for the admin
-# #     going to the form to create the catogory and send it to database
-# #     """
-# #     pass
+# @app.route('/admin/create_category', methods=['GET', 'POST'])
+# async def create_category():
+#     """
+#     available only for the admin
+#     going to the form to create the catogory and send it to database
+#     """
+#     pass
 
 
 # # @app.patch('/admin/update_category/{int:category_id}')
