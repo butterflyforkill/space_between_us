@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from src.db.dependencies import get_db
-from .schemas import SubscribeCategoryModel, CategoryCreateModel
+from .schemas import SubscribeCategoryModel, CategoryCreateModel, UserSubcribeCategory
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
 from .service import SubscribeService
 
@@ -49,28 +49,63 @@ async def create_category(
     """
     creator_id = token_details.get("user")["user_id"]
     return subscribe_service.create_category(category_model, creator_id, session)
-    
 
 
-# @subscribe_router.route('/subscription_categories/{int:categorie_id}/subscribe', methods=['GET', 'POST'])
-# async def subscribe(categorie_id):
-#     """
-#     user choose the categorie and subscribe to it 
-#     in the form where he can put the time when he want to receive news
+@subscribe_router.delete(
+    '/{category_id}/delete_category',
+    status_code=status.HTTP_200_OK,
+    dependencies=[role_checker]
+)
+async def delete_category(
+    category_id: int,
+    session: Session = Depends(get_db),
+    token_details: dict = Depends(acccess_token_bearer)
+):
+    user_id = token_details.get("user")["user_id"]
+    return subscribe_service.delete_category(category_id, user_id, session)
 
-#     Args:
-#         categorie_id (int): _description_
-#     """
-#     pass
+
+@subscribe_router.post(
+    '/{categorie_id}/subscribe',
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[role_checker]
+    )
+async def subscribe(
+    categorie_id: int,
+    subscribe_model: UserSubcribeCategory,
+    session: Session = Depends(get_db),
+    token_details: dict = Depends(acccess_token_bearer)
+    ):
+    """
+    user choose the categorie and subscribe to it 
+    in the form where he can put the time when he want to receive news
+
+    Args:
+        categorie_id (int): _description_
+    """
+    user_id = token_details.get("user")["user_id"]
+    return subscribe_service.subscribe(subscribe_model, categorie_id, user_id, session)
 
 
-# @subscribe_router.delete('/subscription_categories/{int:categorie_id}/unsubscribe')
-# async def unsubscribe(categorie_id):
-#     """
-#     user unsubscribes from the news categorie
-#     (it'll delete it from the table UserSubscription and UserNotification)
+@subscribe_router.delete(
+    '/{categorie_id}/unsubscribe',
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[role_checker]
+    )
+async def unsubscribe(
+    categorie_id: int,
+    session: Session = Depends(get_db),
+    token_details: dict = Depends(acccess_token_bearer)
+    ):
+    """
+    user unsubscribes from the news categorie
+    (it'll delete it from the table UserSubscription and UserNotification)
 
-#     Args:
-#         categorie_id (int): _description_
-#     """
-#     pass
+    Args:
+        categorie_id (int): _description_
+    """
+    user_id = token_details.get("user")["user_id"]
+    unsubscribe = subscribe_service.unsubscribe(categorie_id, user_id, session)
+    if unsubscribe is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    return {"msg": f"You unsubscribe successfully"}

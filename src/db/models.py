@@ -43,8 +43,9 @@ class UserSubscription(Base):
 
     subscription_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
-    category_id = Column(Integer, ForeignKey("subscribe_categories.category_id"))
+    category_id = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
+    updated_at = Column(TIMESTAMP, default=func.now())
 
 class UserNotification(Base):
     __tablename__ = "user_notifications"
@@ -53,3 +54,4 @@ class UserNotification(Base):
     user_id = Column(Integer, ForeignKey("users.user_id"))
     notification_time = Column(Time, nullable=False)
     created_at = Column(TIMESTAMP, default=func.now())
+    updated_at = Column(TIMESTAMP, default=func.now())

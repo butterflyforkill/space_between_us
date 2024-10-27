@@ -14,3 +14,12 @@ class SubscribeCategoryModel(BaseModel):
 class CategoryCreateModel(BaseModel):
     name: Optional[str] = Field(max_length=50)
     description: Optional[str] = Field(max_length=250)
+
+
+class UserSubcribeCategory(BaseModel):
+    notification: str
+
+
+class SubscribeResponse(BaseModel):
+    pass
+    
