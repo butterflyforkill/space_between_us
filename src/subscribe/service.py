@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Depends
 from src.db.models import TelegramToken, SubscribeCategory, UserSubscription, UserNotification
-from .schemas import CategoryCreateModel, UserSubcribeCategory
+from .schemas import CategoryCreateModel, UserSubcribeCategory, CategoryUpdateModel
 
 
 class SubscribeService():
@@ -38,13 +38,26 @@ class SubscribeService():
         return new_category
     
     
-    def delete_category(self, category_id: int, user_id: int, db: Session):
+    def delete_category(self, category_id: int, db: Session):
         category_to_delete = self.get_category_by_id(category_id, db)
         if not category_to_delete:
             raise HTTPException(status.HTTP_404_NOT_FOUND)
         db.delete(category_to_delete)
         db.commit()
         return {"msg": f"You delete category successfully"}
+    
+    
+    def update_category(self, category_id: int, category_data: CategoryUpdateModel, db: Session):
+        category_to_update = self.get_category_by_id(category_id, db)
+        print(category_to_update)
+        if not category_to_update:
+            raise HTTPException(status.HTTP_404_NOT_FOUND)
+        updated_data = category_data.model_dump(exclude_unset=True)
+        for key, value in updated_data.items():
+            setattr(category_to_update, key, value)
+        db.add(category_to_update)
+        db.commit()
+        return category_to_update
     
     
     def subscribe(self, subscribe_data: UserSubcribeCategory, category_id: int, user_id: int, db: Session):

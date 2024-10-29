@@ -16,6 +16,11 @@ class CategoryCreateModel(BaseModel):
     description: Optional[str] = Field(max_length=250)
 
 
+class CategoryUpdateModel(BaseModel):
+    name: str = Field(max_length=50)
+    description: str = Field(max_length=250)
+
+
 class UserSubcribeCategory(BaseModel):
     notification: str
 

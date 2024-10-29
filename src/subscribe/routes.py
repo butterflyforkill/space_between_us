@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from telethon import TelegramClient
 from sqlalchemy.orm import Session
 from src.db.dependencies import get_db
-from .schemas import SubscribeCategoryModel, CategoryCreateModel, UserSubcribeCategory
+from .schemas import SubscribeCategoryModel, CategoryCreateModel, UserSubcribeCategory, CategoryUpdateModel
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
 from .service import SubscribeService
 from src.tg_handler.tg_client import get_telegram_client
@@ -64,18 +64,32 @@ async def create_category(
     return subscribe_service.create_category(category_model, creator_id, session)
 
 
+@subscribe_router.patch(
+    '/update_category/{category_id}',
+    response_model=SubscribeCategoryModel,
+    dependencies=[role_checker]
+)
+async def update_category(
+    category_id: int,
+    category_model: CategoryUpdateModel,
+    session: Session = Depends(get_db),
+    _: dict = Depends(acccess_token_bearer)
+):
+    print(category_id)
+    return subscribe_service.update_category(category_id, category_model, session)
+
+
 @subscribe_router.delete(
-    '/{category_id}/delete_category',
+    '/delete_category/{category_id}',
     status_code=status.HTTP_200_OK,
     dependencies=[role_checker]
 )
 async def delete_category(
     category_id: int,
     session: Session = Depends(get_db),
-    token_details: dict = Depends(acccess_token_bearer)
+    _: dict = Depends(acccess_token_bearer)
 ):
-    user_id = token_details.get("user")["user_id"]
-    return subscribe_service.delete_category(category_id, user_id, session)
+    return subscribe_service.delete_category(category_id, session)
 
 
 @subscribe_router.post(
