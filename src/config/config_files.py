@@ -13,3 +13,5 @@ class Settings:
     JWT_ALGORITHM: str = os.getenv('jwt_algorithm')
     REDIS_HOST: str = os.getenv('redis_host')
     REDIS_PORT: int = os.getenv('redis_port')
+    TG_API_ID: int = os.getenv('tg_api_id')
+    TG_API_HASH: str = os.getenv('tg_api_hash')

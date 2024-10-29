@@ -1,11 +1,13 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
+from telethon import TelegramClient
 from sqlalchemy.orm import Session
 from src.db.dependencies import get_db
 from .schemas import SubscribeCategoryModel, CategoryCreateModel, UserSubcribeCategory
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
 from .service import SubscribeService
+from src.tg_handler.tg_client import get_telegram_client
 
 acccess_token_bearer = AccessTokenBearer()
 role_checker = Depends(RoleChecker(["admin", "user"]))
@@ -13,11 +15,22 @@ subscribe_router = APIRouter()
 subscribe_service = SubscribeService()
 
 @subscribe_router.post('/profile/telegram_auth')
-async def telegram_auth():
+async def telegram_auth(client: TelegramClient = Depends(get_telegram_client)):
     """
-    telegram auth
+    Initiates Telegram authentication flow.
+
+    Raises:
+        HTTPException: If Telegram authentication fails.
     """
-    pass
+
+    # 1. Generate a unique link for Telegram Login Widget
+    try:
+        auth_link = await client.cl
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate Telegram login link: {e}")
+
+    # 2. Return the link to the frontend for user redirection
+    return {"message": "Please open this link in Telegram to authorize:", "link": auth_link}
 
 
 @subscribe_router.get(
