@@ -1,6 +1,6 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi.templating import Jinja2Templates
 from telethon import TelegramClient
 from sqlalchemy.orm import Session
 from src.db.dependencies import get_db
@@ -13,24 +13,12 @@ acccess_token_bearer = AccessTokenBearer()
 role_checker = Depends(RoleChecker(["admin", "user"]))
 subscribe_router = APIRouter()
 subscribe_service = SubscribeService()
+templates = Jinja2Templates(directory="src/frontend/templates")
 
-@subscribe_router.post('/profile/telegram_auth')
-async def telegram_auth(client: TelegramClient = Depends(get_telegram_client)):
-    """
-    Initiates Telegram authentication flow.
 
-    Raises:
-        HTTPException: If Telegram authentication fails.
-    """
-
-    # 1. Generate a unique link for Telegram Login Widget
-    try:
-        auth_link = await client.cl
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to generate Telegram login link: {e}")
-
-    # 2. Return the link to the frontend for user redirection
-    return {"message": "Please open this link in Telegram to authorize:", "link": auth_link}
+@subscribe_router.get('/profile/telegram_auth')
+async def telegram_auth(request: Request):
+   return templates.TemplateResponse("index.html", {"request": request, "bot_username": "nasadontlookupbot"})
 
 
 @subscribe_router.get(
