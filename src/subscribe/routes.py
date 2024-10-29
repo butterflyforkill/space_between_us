@@ -7,7 +7,6 @@ from src.db.dependencies import get_db
 from .schemas import SubscribeCategoryModel, CategoryCreateModel, UserSubcribeCategory, CategoryUpdateModel
 from src.auth.dependencies import AccessTokenBearer, RoleChecker
 from .service import SubscribeService
-from src.tg_handler.tg_client import get_telegram_client
 
 acccess_token_bearer = AccessTokenBearer()
 role_checker = Depends(RoleChecker(["admin", "user"]))

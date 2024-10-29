@@ -6,6 +6,7 @@ from .schemas import CategoryCreateModel, UserSubcribeCategory, CategoryUpdateMo
 
 class SubscribeService():
     
+    # Categories methods
     def get_all_subscrivbe_categories(self, db: Session):
         """
         Rtrun all the subscribe categories
@@ -59,7 +60,7 @@ class SubscribeService():
         db.commit()
         return category_to_update
     
-    
+    # Subscribe users 
     def subscribe(self, subscribe_data: UserSubcribeCategory, category_id: int, user_id: int, db: Session):
         notification_time = subscribe_data.notification
         exist_category = self.get_category_by_id(category_id, db)
@@ -72,7 +73,6 @@ class SubscribeService():
         db.refresh(new_subscribe)
         db.refresh(new_notification)
         return {"msg": f"You subscribe successfully"}
-        
 
 
     def unsubscribe(self, category_id: int, user_id: int, db: Session):
@@ -84,6 +84,16 @@ class SubscribeService():
             db.commit()
             return {}
         return None
-        
+    
 
-
+    # Tg methods
+    def get_tg_user_info(self, user_id: id, db: Session):
+        return db.query(TelegramToken).filter(TelegramToken.user_id == user_id).first()
+    
+    
+    def store_tg_user_info(self, user_id: int, username: str, first_name: str, last_name: str, db: Session):
+        new_user_info = TelegramToken(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
+        db.add(new_user_info)
+        db.commit()
+        db.refresh(new_user_info)
+        return "Done"

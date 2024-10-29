@@ -25,7 +25,9 @@ class TelegramToken(Base):
 
     token_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
-    telegram_token = Column(String, nullable=False)
+    username = Column(String, nullable=False)
+    first_name = Column(String, nullable=True)
+    last_name = Column(String, nullable=True)
     created_at = Column(TIMESTAMP, default=func.now())
 
 class SubscribeCategory(Base):
@@ -43,7 +45,7 @@ class UserSubscription(Base):
 
     subscription_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
-    category_id = Column(Integer, nullable=False)
+    category_id = Column(Integer, ForeignKey("subscribe_categories.category_id", ondelete='CASCADE'))
     created_at = Column(TIMESTAMP, default=func.now())
     updated_at = Column(TIMESTAMP, default=func.now())
 

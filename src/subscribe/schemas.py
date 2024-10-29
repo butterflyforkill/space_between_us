@@ -11,6 +11,7 @@ class SubscribeCategoryModel(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+
 class CategoryCreateModel(BaseModel):
     name: Optional[str] = Field(max_length=50)
     description: Optional[str] = Field(max_length=250)
@@ -25,6 +26,9 @@ class UserSubcribeCategory(BaseModel):
     notification: str
 
 
-class SubscribeResponse(BaseModel):
-    pass
+class TelegramCreateModel(BaseModel):
+    username: str = Field(max_length=50)
+    first_name: str = Field(max_length=100)
+    last_name: str = Field(max_length=100)
+
     
