@@ -91,7 +91,7 @@ class SubscribeService():
         return db.query(TelegramToken).filter(TelegramToken.user_id == user_id).first()
     
     
-    def store_tg_user_info(self, user_id: int, username: str, first_name: str, last_name: str, db: Session):
+    def store_tg_user_info(self, user_id: int, sender_id: int, username: str, first_name: str, last_name: str, db: Session):
         new_user_info = TelegramToken(user_id=user_id, username=username, first_name=first_name, last_name=last_name)
         db.add(new_user_info)
         db.commit()

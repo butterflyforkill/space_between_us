@@ -24,7 +24,7 @@ class TelegramToken(Base):
     __tablename__ = "telegram_tokens"
 
     token_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"))
+    tg_user_id = Column(Integer, nullable=False)
     username = Column(String, nullable=False)
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
