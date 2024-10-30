@@ -4,7 +4,7 @@ from src.config.config_files import Settings
 from sqlalchemy.ext.declarative import declarative_base
 
 
-DATABASE_URL = Settings.DATABASE_URL
+DATABASE_URL = Settings.EXT_DATABASE_URL
 engine = create_engine(
     DATABASE_URL
 )
