@@ -7,8 +7,9 @@ load_dotenv(find_dotenv())
 @dataclass(frozen=True)
 class Settings:
     APIkey: str = os.getenv('apikey')
-    DATABASEpass: str = os.getenv('databasepass')
     JWT_SECRET_KEY: str = os.getenv('jwt_secret_key')
     JWT_ALGORITHM: str = os.getenv('jwt_algorithm')
     REDIS_HOST: str = os.getenv('redis_host')
     REDIS_PORT: int = os.getenv('redis_port')
+    DATABASE_URL: str = os.getenv('database_url')
+    
