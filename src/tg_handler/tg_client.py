@@ -1,9 +1,7 @@
 import asyncio
 from telethon import TelegramClient, events
 from src.tg_handler.config_files import Settings
-from src.subscribe.service import SubscribeService
-
-service = SubscribeService()
+from src.cron_rabbitmq import rabbit_mq_handler
 
 
 def get_telegram_client():
@@ -30,7 +28,7 @@ async def handle_start(event):
     username = event.sender.username or "Unknown"
 
     # Store user information, including username
-    await asyncio.run_in_executor(service.store_user_info(user_id, first_name, last_name, username))
+    await rabbit_mq_handler.send_user_info_to_rabbitmq(user_id, username, first_name, last_name)
 
     await event.respond(f"Hello, {first_name} {last_name} ({username})!")
 
