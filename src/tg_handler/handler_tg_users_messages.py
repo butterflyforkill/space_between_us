@@ -1,7 +1,7 @@
 import logging
 from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes, InlineQueryHandler, Updater
-from config.config_files import Settings
+from config_files import Settings
 from uuid import uuid4
 from NASA_api_handler import handler_NASA_API
 from datetime import time, datetime

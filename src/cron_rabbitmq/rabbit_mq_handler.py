@@ -1,5 +1,4 @@
 import pika
-from src.db.models import TelegramToken
 from src.subscribe.service import SubscribeService
 from src.db.dependencies import get_db
 
