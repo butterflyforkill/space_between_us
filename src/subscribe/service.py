@@ -24,7 +24,7 @@ class SubscribeService():
         return db.query(SubscribeCategory).filter(SubscribeCategory.category_id==category_id).first()
     
     
-    def create_category(self, category_data: CategoryCreateModel, creator: int, db: Session):
+    def create_category(self, category_data: CategoryCreateModel, db: Session):
         """_summary_
 
         Args:
@@ -32,7 +32,6 @@ class SubscribeService():
         """
         category_dict = category_data.model_dump()
         new_category = SubscribeCategory(**category_dict)
-        new_category.creator = creator
         db.add(new_category)
         db.commit()
         db.refresh(new_category)

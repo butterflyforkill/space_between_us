@@ -6,8 +6,7 @@ from .schemas import UserCreateModel, UserModel, UserLoginModel
 from src.db.dependencies import get_db
 from .service import UserService
 from .utils import (
-    create_access_token, 
-    decode_token, 
+    create_access_token,
     verify_password
     )
 from .dependencies import (
@@ -15,7 +14,6 @@ from .dependencies import (
     AccessTokenBearer, 
     get_current_user, 
     RoleChecker)
-from src.db.redis import add_jti_to_blocklist
 
 
 auth_router = APIRouter()
@@ -106,8 +104,7 @@ async def get_current_user(user=Depends(get_current_user), _: bool = Depends(rol
 
 
 @auth_router.get('/logout')
-async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
-    await add_jti_to_blocklist(token_details["jti"])
+async def revoke_token(_: dict = Depends(AccessTokenBearer())):
     return JSONResponse(
         content={"message": "Logged Out Successfully"},
         status_code=status.HTTP_200_OK

@@ -25,7 +25,10 @@ async def telegram_auth(request: Request):
     response_model=List[SubscribeCategoryModel],
     dependencies=[role_checker]
     )
-async def subscription_list(session: Session = Depends(get_db),  _: dict = Depends(acccess_token_bearer)):
+async def subscription_list(
+    session: Session = Depends(get_db),
+    _: dict = Depends(acccess_token_bearer)
+    ):
     """
     the list of categories for subscribe
     """
@@ -41,14 +44,13 @@ async def subscription_list(session: Session = Depends(get_db),  _: dict = Depen
 async def create_category(
     category_model: CategoryCreateModel,
     session: Session = Depends(get_db),
-    token_details: dict = Depends(acccess_token_bearer)
+    _: dict = Depends(acccess_token_bearer)
     ) -> dict:
     """
     available only for the admin
     going to the form to create the catogory and send it to database
     """
-    creator_id = token_details.get("user")["user_id"]
-    return subscribe_service.create_category(category_model, creator_id, session)
+    return subscribe_service.create_category(category_model, session)
 
 
 @subscribe_router.patch(

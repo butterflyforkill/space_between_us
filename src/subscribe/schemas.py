@@ -7,7 +7,6 @@ class SubscribeCategoryModel(BaseModel):
     category_id: int
     name: Optional[str] = Field(max_length=50)
     description: Optional[str] = Field(max_length=250)
-    creator: int
     created_at: datetime
     updated_at: datetime
 

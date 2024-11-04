@@ -4,7 +4,6 @@ from fastapi.security import HTTPBearer
 from sqlalchemy.orm import Session
 from typing import Any, List
 from .utils import decode_token
-from src.db.redis import token_in_blocklist
 from src.db.dependencies import get_db
 from .service import UserService
 from src.db.models import User
@@ -25,14 +24,6 @@ class TokenBearer(HTTPBearer):
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail={
                     "error": "This token is invalid or expired",
-                    "resolution": "Please get a new token"
-                }
-                )
-        if await token_in_blocklist(token_data['jti']):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail={
-                    "error": "This token is invalid or has been revoked",
                     "resolution": "Please get a new token"
                 }
                 )
