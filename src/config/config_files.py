@@ -12,6 +12,7 @@ class Settings:
     REDIS_HOST: str = os.getenv('redis_host')
     REDIS_PORT: int = os.getenv('redis_port')
     REDIS_PASS: int = os.getenv('redis_password')
+    REDIS_URL: str = os.getenv('redis_url')
     EXT_DATABASE_URL: str = os.getenv('ext_database_url')
     INT_DATABASE_URL: str = os.getenv('int_database_url')
     

@@ -4,11 +4,8 @@ from src.config.config_files import Settings
 
 JTI_EXPIRY = 3600
 
-token_blocklist = aioredis.StrictRedis(
-    host=Settings.REDIS_HOST,
-    port=Settings.REDIS_PORT,
-    password=Settings.REDIS_PASS,
-    db=0
+token_blocklist = aioredis.from_url(
+    Settings.REDIS_URL
 )
 
 
