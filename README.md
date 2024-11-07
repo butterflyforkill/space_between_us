@@ -71,4 +71,5 @@ fastapi dev src/
 ```
 http://127.0.0.1:8000/docs 
 ```
+<img width="1430" alt="Screenshot 2024-11-07 at 16 45 29" src="https://github.com/user-attachments/assets/52a6f291-7857-4cda-b300-20fa236b2313">
 
