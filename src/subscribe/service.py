@@ -7,7 +7,7 @@ from .schemas import CategoryCreateModel, UserSubcribeCategory, CategoryUpdateMo
 class SubscribeService():
     
     # Categories methods
-    def get_all_subscrivbe_categories(self, db: Session):
+    def get_all_subscribe_categories(self, db: Session):
         """
         Rtrun all the subscribe categories
 
@@ -15,7 +15,7 @@ class SubscribeService():
             db (Session): _description_
 
         Returns:
-            _type_: _description_
+            List: _description_
         """
         return db.query(SubscribeCategory).all()
     

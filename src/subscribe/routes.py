@@ -11,6 +11,7 @@ from .service import SubscribeService
 acccess_token_bearer = AccessTokenBearer()
 role_checker = Depends(RoleChecker(["admin", "user"]))
 subscribe_router = APIRouter()
+categories_router = APIRouter()
 subscribe_service = SubscribeService()
 templates = Jinja2Templates(directory="src/frontend/templates")
 
@@ -20,8 +21,8 @@ async def telegram_auth(request: Request):
    return templates.TemplateResponse("index.html", {"request": request, "bot_username": "nasadontlookupbot"})
 
 
-@subscribe_router.get(
-    '/subscription_categories',
+@categories_router.get(
+    '/',
     response_model=List[SubscribeCategoryModel],
     dependencies=[role_checker]
     )
@@ -32,11 +33,11 @@ async def subscription_list(
     """
     the list of categories for subscribe
     """
-    return subscribe_service.get_all_subscrivbe_categories(session)
+    return subscribe_service.get_all_subscribe_categories(session)
 
 
-@subscribe_router.post(
-    '/create_category',
+@categories_router.post(
+    '/create',
     status_code=status.HTTP_201_CREATED,
     response_model=SubscribeCategoryModel,
     dependencies=[role_checker]
@@ -53,8 +54,8 @@ async def create_category(
     return subscribe_service.create_category(category_model, session)
 
 
-@subscribe_router.patch(
-    '/update_category/{category_id}',
+@categories_router.patch(
+    '/{category_id}',
     response_model=SubscribeCategoryModel,
     dependencies=[role_checker]
 )
@@ -68,8 +69,8 @@ async def update_category(
     return subscribe_service.update_category(category_id, category_model, session)
 
 
-@subscribe_router.delete(
-    '/delete_category/{category_id}',
+@categories_router.delete(
+    '/{category_id}',
     status_code=status.HTTP_200_OK,
     dependencies=[role_checker]
 )

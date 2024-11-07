@@ -1,8 +1,9 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI
 import src.db.models as models
 from src.db.database import engine
 from src.auth.routes import auth_router
 from src.subscribe.routes import subscribe_router
+from src.subscribe.routes import categories_router
 
 
 version = "v1"
@@ -23,4 +24,5 @@ app = FastAPI(
 models.Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(categories_router, prefix="/categories", tags=["categories"])
 app.include_router(subscribe_router, prefix="/subscribe", tags=["subscribe"])
