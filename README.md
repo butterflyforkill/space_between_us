@@ -1,4 +1,4 @@
-# Space Beetween Us - Telegram-Based News Delivery Platform
+# Space Between Us - Telegram-Based News Delivery Platform
 
 **Purpose:**
 
